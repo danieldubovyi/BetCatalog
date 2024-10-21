@@ -1,0 +1,6 @@
+@BetCatalog.WebApi_HostAddress = http://localhost:5037
+
+GET {{BetCatalog.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

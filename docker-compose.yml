@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  migrations:
+    container_name: service-migrations
+    image: service-migrations
+    build:
+      context: .
+      dockerfile: BetCatalog.Infrastructure.EFCore/Dockerfile
+      target: migrations
+    depends_on:
+        - mssql_bet
+        
+  mssql_bet:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql_bet
+    environment:
+      - SA_PASSWORD=Q1w2_E3_r4_t5
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    networks:
+      - mynetwork
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+  webapi_bet:
+    build:
+      context: .
+      dockerfile: BetCatalog.WebApi/Dockerfile
+    container_name: webapi_bet
+    depends_on:
+      - mssql_bet
+    ports:
+      - "5000:8080"
+    networks:
+      - mynetwork
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__BetCatalogDocker=Server=mssql_bet,1433;Database=BetCatalog;User Id=SA;Password=Q1w2_E3_r4_t5;TrustServerCertificate=True;
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+    entrypoint: ["./entrypoint.sh"]
+
+  reactapp_bet:
+    build:
+      context: .
+      dockerfile: betcatalog.webui/Dockerfile
+    container_name: reactapp_bet
+    ports:
+      - "3000:80"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+
+volumes:
+  mssql_data:

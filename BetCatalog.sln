@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetCatalog.Infrastructure.EFCore", "BetCatalog.Infrastructure.EFCore\BetCatalog.Infrastructure.EFCore.csproj", "{C7F3381C-5E09-420E-A7E9-3077E6E668A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetCatalog.Infrastructure.EFCore.Seed", "BetCatalog.Infrastructure.EFCore.Seed\BetCatalog.Infrastructure.EFCore.Seed.csproj", "{41F18C80-434D-47CE-B580-40B3C4209249}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetCatalog.Models", "BetCatalog.Models\BetCatalog.Models.csproj", "{3E8F7165-A727-47AC-8D8E-9F32103D461D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetCatalog.Services", "BetCatalog.Services\BetCatalog.Services.csproj", "{9264BF5A-4040-4655-8450-19E2BBF80C0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetCatalog.WebApi", "BetCatalog.WebApi\BetCatalog.WebApi.csproj", "{B78D27EA-BEF8-49D1-9547-A372EDFBCA6D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C7F3381C-5E09-420E-A7E9-3077E6E668A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7F3381C-5E09-420E-A7E9-3077E6E668A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7F3381C-5E09-420E-A7E9-3077E6E668A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7F3381C-5E09-420E-A7E9-3077E6E668A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41F18C80-434D-47CE-B580-40B3C4209249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41F18C80-434D-47CE-B580-40B3C4209249}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41F18C80-434D-47CE-B580-40B3C4209249}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41F18C80-434D-47CE-B580-40B3C4209249}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E8F7165-A727-47AC-8D8E-9F32103D461D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E8F7165-A727-47AC-8D8E-9F32103D461D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E8F7165-A727-47AC-8D8E-9F32103D461D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E8F7165-A727-47AC-8D8E-9F32103D461D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9264BF5A-4040-4655-8450-19E2BBF80C0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9264BF5A-4040-4655-8450-19E2BBF80C0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9264BF5A-4040-4655-8450-19E2BBF80C0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9264BF5A-4040-4655-8450-19E2BBF80C0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B78D27EA-BEF8-49D1-9547-A372EDFBCA6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B78D27EA-BEF8-49D1-9547-A372EDFBCA6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B78D27EA-BEF8-49D1-9547-A372EDFBCA6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B78D27EA-BEF8-49D1-9547-A372EDFBCA6D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
