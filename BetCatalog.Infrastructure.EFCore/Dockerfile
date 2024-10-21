@@ -27,3 +27,4 @@ FROM buildbase as migrations
 RUN dotnet tool install --version 8.0 --global dotnet-ef
 ENV PATH="$PATH:/root/.dotnet/tools"
 ENTRYPOINT dotnet-ef database update --project BetCatalog.Infrastructure.EFCore
+# ENTRYPOINT dotnet run --project BetCatalog.Infrastructure.EFCore.Seed

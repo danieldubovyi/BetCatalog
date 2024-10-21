@@ -4,9 +4,9 @@ import './Accounts.css';
 
 interface Account {
     id: number;
-    type: string;
-    isOrdered: boolean
-    isDelivered: boolean;
+    status: string;
+    login: string;
+    password: string;
 }
 
 function Accounts() {
@@ -18,7 +18,10 @@ function Accounts() {
     const navigate = useNavigate();
 
     const goToItemPage = (id: number) => {
-        navigate(`/Accounts/${id}`)
+        navigate(`/accounts/${id}`)
+    }
+    const goToAccountCreate = () => {
+        navigate(`/accounts/create`)
     }
 
     const contents = Accounts === undefined
@@ -27,9 +30,9 @@ function Accounts() {
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Type</th>
-                    <th>Is Ordered</th>
-                    <th>Is Delivered</th>
+                    <th>Статус</th>
+                    <th>Логин</th>
+                    <th>Пароль</th>
                     <th>Button</th>
                 </tr>
             </thead>
@@ -37,10 +40,10 @@ function Accounts() {
                 {Accounts.map(Account =>
                     <tr key={Account.id}>
                         <td>{Account.id}</td>
-                        <td>{Account.type}</td>
-                        <td>{Account.isOrdered === true ? "True" : "False"}</td>
-                        <td>{Account.isDelivered === true ? "True" : "False"}</td>
-                        <td><button onClick={() => goToItemPage(Account.id)} className="btn">See</button></td>
+                        <td>{Account.status}</td>
+                        <td>{Account.login}</td>
+                        <td>{Account.password}</td>
+                        <td><button onClick={() => goToItemPage(Account.id)} className="btn">Детали аккаунта</button></td>
                     </tr>
                 )}
             </tbody>
@@ -48,9 +51,10 @@ function Accounts() {
 
     return (
         <div>
-            <h1 id="tabelLabel">Accounts</h1>
-            <p>Getting Accounts list</p>
+            <h1 id="tabelLabel">Аккаунты</h1>
+            <p>Список аккаунтов</p>
             {contents}
+            <button onClick={() => goToAccountCreate()} className="btn">Создать аккаунт</button>
         </div>
     );
 

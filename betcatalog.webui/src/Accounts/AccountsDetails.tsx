@@ -4,16 +4,9 @@ import './AccountsDetails.css';
 
 interface AccountsDetails {
     id: number;
-    type: string;
-    modelName: string;
-    link: string;
-    price: number;
-    deliverAndCommision: number;
-    priceUsd: number;
-    currencyUsd: number;
-    isOrdered: boolean;
-    isDelivered: boolean;
-    droneId: number;
+    status: string;
+    login: string;
+    password: string;
 }
 
 function AccountsDetails() {
@@ -31,39 +24,26 @@ function AccountsDetails() {
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Type</th>
-                    <th>Model Name</th>
-                    <th>Link</th>
-                    <th>Price</th>
-                    <th>Delivery And Commision</th>
-                    <th>Price Usd</th>
-                    <th>Currency Usd</th>
-                    <th>Is Ordered</th>
-                    <th>Is Delivered</th>
-                    <th>Drone ID</th>
+                    <th>Статус</th>
+                    <th>Логин</th>
+                    <th>Пароль</th>
+                    <th>Button</th>
                 </tr>
             </thead>
             <tbody>
                     <tr key={AccountsDetails.id}>
                     <td>{AccountsDetails.id}</td>
-                    <td>{AccountsDetails.type}</td>
-                    <td>{AccountsDetails.modelName}</td>
-                    <td>{AccountsDetails.link}</td>
-                    <td>{AccountsDetails.price}</td>
-                    <td>{AccountsDetails.deliverAndCommision}</td>
-                    <td>{AccountsDetails.priceUsd}</td>
-                    <td>{AccountsDetails.currencyUsd}</td>
-                    <td>{AccountsDetails.isOrdered === true ? "True" : "False"}</td>
-                    <td>{AccountsDetails.isDelivered === true ? "True" : "False"}</td>
-                    <td>{AccountsDetails.droneId}</td>
+                    <td>{AccountsDetails.status}</td>
+                    <td>{AccountsDetails.login}</td>
+                    <td>{AccountsDetails.password}</td>
                 </tr>
             </tbody>
         </table>;
 
     return (
         <div>
-            <h1 id="tabelLabel">Account</h1>
-            <p>Getting Account details</p>
+            <h1 id="tabelLabel">Аккаунт</h1>
+            <p>Детали аккаунта</p>
             <p>ID ARG: {id}</p>
             {contents}
         </div>

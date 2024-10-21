@@ -5,9 +5,12 @@ import './PersonDetails.css';
 
 interface PersonDetails {
     id: number;
-    price: number;
-    isCreated: boolean
-    isSent: boolean;
+    fio: string;
+    telegramId: string;
+    phoneNumber: string;
+    bank: string;
+    birthDate: Date;
+    passportDate: Date;
 }
 
 function PersonDetails() {
@@ -19,7 +22,7 @@ function PersonDetails() {
     }, []);
     const navigate = useNavigate();
 
-    const goToComponentsListPage = () => {
+    const goToCPersonAccountsListPage = (id: number) => {
         navigate(`/persons/${id}/accounts`)
     }
 
@@ -30,26 +33,33 @@ function PersonDetails() {
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Type</th>
-                    <th>Is Created</th>
-                    <th>Is Sent</th>
+                    <th>ФИО</th>
+                    <th>Telegram ID</th>
+                    <th>Номер телефона</th>
+                    <th>Банк</th>
+                    <th>Дата рождения</th>
+                    <th>Дата паспорта</th>
+                    <th>Button</th>
                 </tr>
             </thead>
             <tbody>
                 <td>{PersonDetails.id}</td>
-                <td>{PersonDetails.price}</td>
-                <td>{PersonDetails.isCreated === true ? "True" : "False"}</td>
-                <td>{PersonDetails.isSent === true ? "True" : "False"}</td>
+                <td>{PersonDetails.fio}</td>
+                <td>{PersonDetails.telegramId}</td>
+                <td>{PersonDetails.phoneNumber}</td>
+                <td>{PersonDetails.bank}</td>
+                <td>{PersonDetails.birthDate.toString()}</td>
+                <td>{PersonDetails.passportDate.toString()}</td>
+                <td><button onClick={() => goToCPersonAccountsListPage(PersonDetails.id)} className="btn">Список аккаунтов</button></td>
             </tbody>
         </table>;
 
     return (
         <div>
-            <h1 id="tabelLabel">Person</h1>
-            <p>Getting Person details</p>
+            <h1 id="tabelLabel">Дроп</h1>
+            <p>Детали Дропа</p>
             <p>ID ARG: {id}</p>
             {contents}
-            <button onClick={() => goToComponentsListPage()} className="btn">See components</button>
         </div>
     );
 

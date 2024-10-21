@@ -63,11 +63,11 @@ export default defineConfig({
                 target,
                 secure: false,
             },
-            '^/api/components': {
+            '^/api/accounts': {
                 target: 'http://localhost:5000/',
                 secure: false,
             },
-            '^/api/drones': {
+            '^/api/persons': {
                 target: 'http://localhost:5000/',
                 secure: false,
             },

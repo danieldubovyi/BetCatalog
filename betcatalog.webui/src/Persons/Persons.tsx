@@ -4,9 +4,8 @@ import './Persons.css';
 
 interface Person {
     id: number;
-    price: number;
-    isCreated: boolean
-    isSent: boolean;
+    fio: string;
+    telegramId: string;
 }
 
 function Persons() {
@@ -32,9 +31,8 @@ function Persons() {
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Type</th>
-                    <th>Is Created</th>
-                    <th>Is Sent</th>
+                    <th>ФИО</th>
+                    <th>Telegram ID</th>
                     <th>Button</th>
                 </tr>
             </thead>
@@ -42,10 +40,9 @@ function Persons() {
                 {Persons.map(Person =>
                     <tr key={Person.id}>
                         <td>{Person.id}</td>
-                        <td>{Person.price}</td>
-                        <td>{Person.isCreated === true ? "True" : "False"}</td>
-                        <td>{Person.isSent === true ? "True" : "False"}</td>
-                        <td><button onClick={() => goToPersonDetailsPage(Person.id)} className="btn">See</button></td>
+                        <td>{Person.fio}</td>
+                        <td>{Person.telegramId}</td>
+                        <td><button onClick={() => goToPersonDetailsPage(Person.id)} className="btn">Детали</button></td>
                     </tr>
                 )}
             </tbody>
@@ -53,15 +50,15 @@ function Persons() {
 
     return (
         <div>
-            <h1 id="tabelLabel">Components</h1>
-            <p>Getting Persons list</p>
+            <h1 id="tabelLabel">Дропы</h1>
+            <p>Список Дропов</p>
             {contents}
-            <button onClick={() => createPerson()} className="btn" >Add new Person</button>
+            <button onClick={() => createPerson()} className="btn" >Создать Дропа</button>
         </div>
     );
 
     async function populatePersonsData() {
-        const response = await fetch('http://localhost:5000/api/Persons');
+        const response = await fetch('http://localhost:5000/api/persons');
         const data = await response.json();
         setPersons(data);
     }
