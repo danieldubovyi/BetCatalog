@@ -14,7 +14,7 @@ namespace BetCatalog.Infrastructure.EFCore
             //Local MSSQL
             //optionsBuilder.UseSqlServer("data source=.;initial catalog=BetCatalog;Integrated Security=true;Encrypt=False;TrustServerCertificate=True");
             //Docker MSSQL 
-            optionsBuilder.UseSqlServer("Server=mssql_bet,1433;Database=BetCatalog;User Id=SA;Password=Q1w2_E3_r4_t5;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Server=localhost,1433;Database=BetCatalog;User Id=SA;Password=Q1w2_E3_r4_t5;TrustServerCertificate=True;");
             //MySql
             //optionsBuilder.UseMySQL("Server=localhost;Database=BetCatalog;Uid=root;Pwd=q1w2e3;");
             //Azure
