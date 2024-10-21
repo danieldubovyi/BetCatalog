@@ -34,7 +34,7 @@ RUN dotnet tool install --global dotnet-ef
 # Add .NET SDK tools to PATH
 ENV PATH="$PATH:/root/.dotnet/tools"
 
-RUN dotnet run --project BetCatalog.Infrastructure.EFCore.Seed
+# RUN dotnet run --project BetCatalog.Infrastructure.EFCore.Seed
 
 # Run database migration and seed data (before publishing)
 # RUN cd ./BetCatalog.Infrastructure.EFCore/
