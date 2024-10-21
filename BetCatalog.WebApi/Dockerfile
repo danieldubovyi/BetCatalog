@@ -29,10 +29,12 @@ RUN dotnet restore "BetCatalog.WebApi/BetCatalog.WebApi.csproj"
 COPY . .
 
 # Install EF Tools
-# RUN dotnet tool install --global dotnet-ef
+RUN dotnet tool install --global dotnet-ef
 
 # Add .NET SDK tools to PATH
-# ENV PATH="$PATH:/root/.dotnet/tools"
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+RUN dotnet run --project BetCatalog.Infrastructure.EFCore.Seed
 
 # Run database migration and seed data (before publishing)
 # RUN cd ./BetCatalog.Infrastructure.EFCore/
@@ -52,5 +54,10 @@ RUN dotnet publish "BetCatalog.WebApi.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+
+# Add entrypoint for migration and seeding
+COPY ["BetCatalog.WebApi/entrypoint.sh", "/app/entrypoint.sh"]
+RUN chmod +x /app/entrypoint.sh
 
 ENTRYPOINT ["./entrypoint.sh"]

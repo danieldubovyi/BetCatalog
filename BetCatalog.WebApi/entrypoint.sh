@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 
-# Wait for SQL Server to be ready
+# Wait for the SQL Server to be ready
 sleep 30
 
-# Run the database migrations
+# Apply database migrations
 # dotnet ef database update --project BetCatalog.Infrastructure.EFCore
 
-# Seed the database
+# Seed the database (optional)
 # dotnet run --project BetCatalog.Infrastructure.EFCore.Seed
 
-# Run the application
+# Start the Web API
 exec dotnet BetCatalog.WebApi.dll

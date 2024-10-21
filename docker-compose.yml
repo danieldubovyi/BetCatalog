@@ -1,16 +1,6 @@
 version: '3.8'
 
-services:
-  migrations:
-    container_name: service-migrations
-    image: service-migrations
-    build:
-      context: .
-      dockerfile: BetCatalog.Infrastructure.EFCore/Dockerfile
-      target: migrations
-    depends_on:
-        - mssql_bet
-        
+services:      
   mssql_bet:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: mssql_bet
@@ -24,6 +14,20 @@ services:
     volumes:
       - mssql_data:/var/opt/mssql
 
+  migrations:
+    container_name: service-migrations
+    build:
+      context: .
+      dockerfile: BetCatalog.Infrastructure.EFCore/Dockerfile
+      target: build
+    depends_on:
+        - mssql_bet
+    environment:
+        - ConnectionStrings__BetCatalogDocker=Server=mssql_bet,1433;Database=BetCatalog;User Id=SA;Password=Q1w2_E3_r4_t5;TrustServerCertificate=True;
+    networks:
+        - mynetwork
+    entrypoint: ["/bin/bash", "-c", "sleep 30 && dotnet ef database update --project BetCatalog.Infrastructure.EFCore"]
+
   webapi_bet:
     build:
       context: .
@@ -31,6 +35,7 @@ services:
     container_name: webapi_bet
     depends_on:
       - mssql_bet
+      - migrations
     ports:
       - "5000:8080"
     networks:

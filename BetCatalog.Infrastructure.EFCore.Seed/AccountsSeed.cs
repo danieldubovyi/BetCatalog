@@ -19,7 +19,7 @@ namespace BetCatalog.Infrastructure.EFCore.Seed
 
             var account = new Account
             {
-                Status = 1,
+                Status = AccountStatus.Approved,
                 Login = "DADDA13131",
                 Password = "12345",
                 Person = person
@@ -37,7 +37,7 @@ namespace BetCatalog.Infrastructure.EFCore.Seed
 
             var account1 = new Account
             {
-                Status = 1,
+                Status = AccountStatus.Approved,
                 Login = "GGAGA22",
                 Password = "12345",
                 Person = person1
