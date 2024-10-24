@@ -12,15 +12,15 @@ namespace BetCatalog.Services.Persons.Queries
         public async Task<PersonDetails> Handle(GetPersonDetailsQuery request, CancellationToken cancellationToken)
         {
             return await personRepository.GetAsync(request.PersonId,
-                d => new PersonDetails
+                p => new PersonDetails
                 {
-                    Id = d.Id,
-                    FIO = d.FIO,
-                    TelegramId = d.TelegramId,
-                    PhoneNumber = d.PhoneNumber,
-                    Bank = d.Bank,
-                    BirthDate = d.BirthDate,
-                    PassportDate = d.PassportDate
+                    Id = p.Id,
+                    FIO = p.FIO,
+                    TelegramId = p.TelegramId,
+                    PhoneNumber = p.PhoneNumber,
+                    BirthDate = p.BirthDate,
+                    PassportDate = p.PassportDate,
+                    PersonType = p.PersonType,
                 }, cancellationToken);
         }
     }

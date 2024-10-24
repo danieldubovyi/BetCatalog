@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BetCatalog.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(BetCatalogDbContext))]
-    [Migration("20241021011223_InitialCreate")]
+    [Migration("20241024013155_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -54,7 +54,7 @@ namespace BetCatalog.Infrastructure.EFCore.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("BetCatalog.Models.Persons.Person", b =>
+            modelBuilder.Entity("BetCatalog.Models.BankAccounts.BankAccount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,9 +62,49 @@ namespace BetCatalog.Infrastructure.EFCore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Bank")
+                    b.Property<string>("BankName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CVV")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CardNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("INN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PaymentType")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PinCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateOnly>("ValidationEndDate")
+                        .HasColumnType("date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("BankAccounts");
+                });
+
+            modelBuilder.Entity("BetCatalog.Models.Persons.Person", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateOnly>("BirthDate")
                         .HasColumnType("date");
@@ -75,6 +115,9 @@ namespace BetCatalog.Infrastructure.EFCore.Migrations
 
                     b.Property<DateOnly>("PassportDate")
                         .HasColumnType("date");
+
+                    b.Property<int>("PersonType")
+                        .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -338,6 +381,16 @@ namespace BetCatalog.Infrastructure.EFCore.Migrations
                 });
 
             modelBuilder.Entity("BetCatalog.Models.Accounts.Account", b =>
+                {
+                    b.HasOne("BetCatalog.Models.Persons.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Person");
+                });
+
+            modelBuilder.Entity("BetCatalog.Models.BankAccounts.BankAccount", b =>
                 {
                     b.HasOne("BetCatalog.Models.Persons.Person", "Person")
                         .WithMany()

@@ -1,5 +1,6 @@
 using BetCatalog.Models.Persons;
 using BetCatalog.Models.Accounts;
+using BetCatalog.Models.BankAccounts;
 using BetCatalog.Models.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,9 @@ namespace BetCatalog.Infrastructure.EFCore
         : IdentityDbContext<User>(options)
     {
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<BankAccount> BankAccounts { get; set; }
         public DbSet<Person> Persons { get; set; }
+        
 
         public DbSet<UserSetting> UserSettings { get; set; }
 
@@ -28,6 +31,12 @@ namespace BetCatalog.Infrastructure.EFCore
 
             modelBuilder.Entity<Person>()
                 .HasMany<Account>()
+                .WithOne(c => c.Person)
+                .HasForeignKey(c => c.PersonId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Person>()
+                .HasMany<BankAccount>()
                 .WithOne(c => c.Person)
                 .HasForeignKey(c => c.PersonId)
                 .OnDelete(DeleteBehavior.Cascade);

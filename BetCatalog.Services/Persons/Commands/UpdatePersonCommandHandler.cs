@@ -15,9 +15,9 @@ namespace BetCatalog.Services.Persons.Commands
             person.FIO = request.CreateParams.FIO;
             person.TelegramId = request.CreateParams.TelegramId;
             person.PhoneNumber = request.CreateParams.PhoneNumber;
-            person.Bank = request.CreateParams.Bank;
             person.BirthDate = request.CreateParams.BirthDate;
             person.PassportDate = request.CreateParams.PassportDate;
+            person.PersonType = request.CreateParams.PersonType;
             await personRepository.UpdateAsync(person, cancellationToken);
         }
     }

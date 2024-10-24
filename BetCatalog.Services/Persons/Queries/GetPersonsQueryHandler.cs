@@ -12,11 +12,12 @@ namespace BetCatalog.Services.Persons.Queries
         public async Task<IReadOnlyCollection<PersonListItem>> Handle(GetPersonsQuery request, CancellationToken cancellationToken)
         {
             return await personRepository.GetProjectedListAsync(
-                d => new PersonListItem
+                p => new PersonListItem
                 {
-                    Id = d.Id,
-                    FIO = d.FIO,
-                    TelegramId = d.TelegramId
+                    Id = p.Id,
+                    FIO = p.FIO,
+                    TelegramId = p.TelegramId,
+                    PersonType = p.PersonType
                 }, cancellationToken);
         }
     }

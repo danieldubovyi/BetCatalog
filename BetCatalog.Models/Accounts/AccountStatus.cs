@@ -2,8 +2,8 @@ namespace BetCatalog.Models.Accounts
 {
     public enum AccountStatus
     {
-        Approved,
-        Unknown,
-        Declined
+        Ok = 1,
+        Limit = 2,
+        Banned = 3,
     }
 }

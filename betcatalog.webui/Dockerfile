@@ -13,6 +13,7 @@ COPY betcatalog.webui/index.html ./
 COPY betcatalog.webui/src/* ./src/
 COPY betcatalog.webui/src/assets/* ./src/assets/
 COPY betcatalog.webui/src/Accounts/* ./src/Accounts/
+COPY betcatalog.webui/src/BankAccounts/* ./src/BankAccounts/
 COPY betcatalog.webui/src/Persons/* ./src/Persons/
 
 # Install dependencies (including devDependencies for the build)
