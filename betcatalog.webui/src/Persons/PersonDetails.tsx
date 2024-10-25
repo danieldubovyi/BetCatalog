@@ -22,43 +22,47 @@ function PersonDetails() {
   }, []);
   const navigate = useNavigate();
 
-  const goToPersonAccountsListPage = (id: number) => {
+  const goToUpdatePersonPage = () => {
+    navigate(`/persons/${id}/update`)
+  }
+
+  const goToPersonAccountsListPage = () => {
     navigate(`/persons/${id}/accounts`)
   }
 
-  const goToPersonBankAccountsListPage = (id: number) => {
+  const goToPersonBankAccountsListPage = () => {
     navigate(`/persons/${id}/bankAccounts`)
   }
 
 
   const contents = PersonDetails === undefined
     ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-    : <table className="table table-striped" aria-labelledby="tabelLabel">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>ФИО</th>
-          <th>Telegram ID</th>
-          <th>Номер телефона</th>
-          <th>Дата рождения</th>
-          <th>Дата паспорта</th>
-          <th>Тип</th>
-          <th>Button</th>
-          <th>Button</th>
-        </tr>
-      </thead>
-      <tbody>
-        <td>{PersonDetails.id}</td>
-        <td>{PersonDetails.fio}</td>
-        <td>{PersonDetails.telegramId}</td>
-        <td>{PersonDetails.phoneNumber}</td>
-        <td>{PersonDetails.birthDate.toString()}</td>
-        <td>{PersonDetails.passportDate.toString()}</td>
-        <td>{PersonDetails.personType === 1 ? 'Drop' : 'Dropovod'}</td>
-        <td><button onClick={() => goToPersonAccountsListPage(PersonDetails.id)} className="btn">Список аккаунтов</button></td>
-        <td><button onClick={() => goToPersonBankAccountsListPage(PersonDetails.id)} className="btn">Список банков</button></td>
-      </tbody>
-    </table>;
+    : (
+      <div className="account-details">
+        <div className="account-field">
+          <strong>Id:</strong> {PersonDetails.id}
+        </div>
+        <div className="account-field">
+          <strong>ФИО</strong> {PersonDetails.fio}
+        </div>
+        <div className="account-field">
+          <strong>Telegram ID:</strong> {PersonDetails.telegramId}
+        </div>
+        <div className="account-field">
+          <strong>Номер телефона:</strong> {PersonDetails.phoneNumber}
+        </div>
+        <div className="account-field">
+          <strong>Дата рождения:</strong> {PersonDetails.birthDate.toString()}
+        </div>
+        <div className="account-field">
+          <strong>Дата паспорта:</strong> {PersonDetails.passportDate.toString()}
+        </div>
+        <div className="account-field">
+          <strong>Тип:</strong> {PersonDetails.personType === 1 ? 'Drop' : 'Dropovod'}
+        </div>
+      </div>
+    );
+
 
   return (
     <div>
@@ -66,6 +70,9 @@ function PersonDetails() {
       <p>Детали Дропа</p>
       <p>ID ARG: {id}</p>
       {contents}
+      <button onClick={() => goToPersonAccountsListPage()} className="btn">Список аккаунтов</button>
+      <button onClick={() => goToPersonBankAccountsListPage()} className="btn">Список банков</button>
+      <button onClick={() => goToUpdatePersonPage()} className="btn">Update Person Data</button>
     </div>
   );
 

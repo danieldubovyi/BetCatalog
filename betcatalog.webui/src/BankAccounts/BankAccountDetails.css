@@ -1,19 +1,15 @@
-#root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
+.account-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-/*tr:nth-child(even) {
-    background: #F2F2F2;
+.account-field {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
 }
 
-tr:nth-child(odd) {
-    background: #FFF;
-}*/
-
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+.account-field strong {
+  margin-right: 10px;
 }

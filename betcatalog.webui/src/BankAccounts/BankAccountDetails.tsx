@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import './BankAccountDetails.css';
 
@@ -21,35 +22,40 @@ function BankAccountsDetails() {
     populateBankAccountDetailsData(id);
   }, []);
 
+  const navigate = useNavigate();
+
+  const goToUpdateAccountPage = () => {
+    navigate(`/bankAccounts/${id}/update`)
+  }
 
   const contents = BankAccountsDetails === undefined
     ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-    : <table className="table table-striped" aria-labelledby="tabelLabel">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Bank Name</th>
-          <th>Пин</th>
-          <th>ИНН</th>
-          <th>Номер карты</th>
-          <th>CVV</th>
-          <th>Метод оплаты</th>
-          <th>Дата на карте</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr key={BankAccountsDetails.id}>
-          <td>{BankAccountsDetails.id}</td>
-          <td>{BankAccountsDetails.bankName}</td>
-          <td>{BankAccountsDetails.pinCode}</td>
-          <td>{BankAccountsDetails.inn}</td>
-          <td>{BankAccountsDetails.cardNumber}</td>
-          <td>{BankAccountsDetails.cvv}</td>
-          <td>{BankAccountsDetails.paymentType === 1 ? 'Visa' : 'Mastercard'}</td>
-          <td>{BankAccountsDetails.validationEndDate}</td>
-        </tr>
-      </tbody>
-    </table>;
+    : (
+      <div className="account-details">
+        <div className="account-field">
+          <strong>Id:</strong> {BankAccountsDetails.id}
+        </div>
+        <div className="account-field">
+          <strong>Bank Name:</strong> {BankAccountsDetails.bankName}
+        </div>
+        <div className="account-field">
+          <strong>Пин:</strong> {BankAccountsDetails.pinCode}
+        </div>
+        <div className="account-field">
+          <strong>ИНН:</strong> {BankAccountsDetails.inn}
+        </div>
+        <div className="account-field">
+          <strong>CVV:</strong> {BankAccountsDetails.cvv}
+        </div>
+        <div className="account-field">
+          <strong>Метод оплаты:</strong> {BankAccountsDetails.paymentType === 1 ? 'Visa' : 'Mastercard'}
+        </div>
+        <div className="account-field">
+          <strong>Дата на карте:</strong> {BankAccountsDetails.validationEndDate}
+        </div>
+      </div>
+    );
+
 
   return (
     <div>
@@ -57,6 +63,7 @@ function BankAccountsDetails() {
       <p>Детали банка</p>
       <p>ID ARG: {id}</p>
       {contents}
+      <button onClick={() => goToUpdateAccountPage()} className="btn">Update Account Data</button>
     </div>
   );
 

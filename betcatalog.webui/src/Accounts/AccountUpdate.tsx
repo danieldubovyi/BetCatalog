@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import './AccountCreate.css';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from "react-router-dom";
+import './AccountUpdate.css'; // You can reuse the same CSS file
 
 interface Account {
   status: number;
@@ -9,7 +9,7 @@ interface Account {
   personId: number;
 }
 
-function AccountCreate() {
+function AccountUpdate() {
   const [account, setAccount] = useState<Account>({
     status: 0,
     login: '',
@@ -17,39 +17,58 @@ function AccountCreate() {
     personId: 0,
   });
 
+  const { id } = useParams(); // Get the account ID from the URL
   const navigate = useNavigate();
+
+  // Fetch existing account data when the component mounts
+  useEffect(() => {
+    const fetchAccount = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/accounts/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setAccount(data); // Populate form fields with the existing account data
+        } else {
+          console.error("Failed to fetch account data");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchAccount();
+  }, [id]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
     const newValue = name === 'status' || name === 'personId' ? Number(value) : value;
-
     setAccount({ ...account, [name]: newValue });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // API POST request to create new account
-    const response = await fetch('http://localhost:5000/api/accounts', {
-      method: 'POST',
+    // API PUT request to update the account
+    const response = await fetch(`http://localhost:5000/api/accounts/${id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(account)
+      body: JSON.stringify(account) // Send the updated account data
     });
 
     if (response.ok) {
-      // After successful creation, navigate to the accounts page or give feedback
+      // After successful update, navigate to the accounts page or give feedback
       navigate('/accounts');
     } else {
       // Handle errors (e.g., display an error message)
-      alert('Error creating account');
+      alert('Error updating account');
     }
   };
 
   return (
     <div>
-      <h1>Создать аккаунт</h1>
+      <h1>Обновить аккаунт</h1>
       <form onSubmit={handleSubmit}>
 
         <div className="form-group">
@@ -60,7 +79,7 @@ function AccountCreate() {
             onChange={handleInputChange}
             required
           >
-            <option selected hidden>Choose here</option>
+            <option hidden>Choose here</option>
             <option value={1}>Ok</option>
             <option value={2}>Limit</option>
             <option value={3}>Banned</option>
@@ -100,10 +119,10 @@ function AccountCreate() {
           />
         </div>
 
-        <button type="submit" className="btn">Создать аккаунт</button>
+        <button type="submit" className="btn">Обновить аккаунт</button>
       </form>
     </div>
   );
 }
 
-export default AccountCreate;
+export default AccountUpdate;

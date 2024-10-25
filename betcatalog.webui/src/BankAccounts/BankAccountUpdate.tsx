@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import './BankAccountCreate.css';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from "react-router-dom";
+import './BankAccountUpdate.css'; // You can reuse the same CSS file
 
 interface BankAccount {
   bankName: string;
@@ -13,7 +13,7 @@ interface BankAccount {
   personId: number;
 }
 
-function BankAccountCreate() {
+function BankAccountUpdate() {
   const [bankAccount, setBankAccount] = useState<BankAccount>({
     bankName: '',
     pinCode: '',
@@ -25,33 +25,52 @@ function BankAccountCreate() {
     personId: 0
   });
 
+  const { id } = useParams(); // Get the account ID from the URL
   const navigate = useNavigate();
+
+  // Fetch existing account data when the component mounts
+  useEffect(() => {
+    const fetchBankAccount = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/bankAccounts/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setBankAccount(data); // Populate form fields with the existing account data
+        } else {
+          console.error("Failed to fetch bank account data");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchBankAccount();
+  }, [id]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
     const newValue = name === 'paymentType' || name === 'personId' ? Number(value) : value;
-
     setBankAccount({ ...bankAccount, [name]: newValue });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // API POST request to create new BankAccount
-    const response = await fetch('http://localhost:5000/api/bankAccounts', {
-      method: 'POST',
+    // API PUT request to update the account
+    const response = await fetch(`http://localhost:5000/api/bankAccounts/${id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(bankAccount)
+      body: JSON.stringify(bankAccount) // Send the updated account data
     });
 
     if (response.ok) {
-      // After successful creation, navigate to the BankAccounts page or give feedback
+      // After successful update, navigate to the accounts page or give feedback
       navigate('/bankAccounts');
     } else {
       // Handle errors (e.g., display an error message)
-      alert('Error creating BankAccount');
+      alert('Error updating bank account');
     }
   };
 
@@ -123,7 +142,7 @@ function BankAccountCreate() {
             onChange={handleInputChange}
             required
           >
-            <option selected hidden>Choose here</option>
+            <option hidden>Choose here</option>
             <option value={1}>Visa</option>
             <option value={2}>Mastercard</option>
           </select>
@@ -157,4 +176,4 @@ function BankAccountCreate() {
   );
 }
 
-export default BankAccountCreate;
+export default BankAccountUpdate;

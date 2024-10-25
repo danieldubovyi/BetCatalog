@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import './AccountsDetails.css';
 
@@ -17,6 +18,12 @@ function AccountsDetails() {
     populateAccountDetailsData(id);
   }, []);
 
+  const navigate = useNavigate();
+
+  const goToUpdateAccountPage = () => {
+    navigate(`/accounts/${id}/update`)
+  }
+
   const convertStatusNumToString = (statusNum: number) => {
     switch (statusNum) {
       case 1:
@@ -30,31 +37,29 @@ function AccountsDetails() {
 
   const contents = AccountsDetails === undefined
     ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-    : <table className="table table-striped" aria-labelledby="tabelLabel">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Статус</th>
-          <th>Логин</th>
-          <th>Пароль</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr key={AccountsDetails.id}>
-          <td>{AccountsDetails.id}</td>
-          <td>{convertStatusNumToString(AccountsDetails.status)}</td>
-          <td>{AccountsDetails.login}</td>
-          <td>{AccountsDetails.password}</td>
-        </tr>
-      </tbody>
-    </table>;
-
+    : (
+      <div className="account-details">
+        <div className="account-field">
+          <strong>Id:</strong> {AccountsDetails.id}
+        </div>
+        <div className="account-field">
+          <strong>Статус:</strong> {convertStatusNumToString(AccountsDetails.status)}
+        </div>
+        <div className="account-field">
+          <strong>Логин:</strong> {AccountsDetails.login}
+        </div>
+        <div className="account-field">
+          <strong>Пароль:</strong> {AccountsDetails.password}
+        </div>
+      </div>
+    );
   return (
     <div>
       <h1 id="tabelLabel">Аккаунт</h1>
       <p>Детали аккаунта</p>
       <p>ID ARG: {id}</p>
       {contents}
+      <button onClick={() => goToUpdateAccountPage()} className="btn">Update Account Data</button>
     </div>
   );
 

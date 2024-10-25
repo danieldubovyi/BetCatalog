@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import './PersonCreate.css';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from "react-router-dom";
+import './PersonUpdate.css'; // You can reuse the same CSS file
 
 interface Person {
   fio: string;
@@ -11,7 +11,7 @@ interface Person {
   personType: number;
 }
 
-function PersonCreate() {
+function PersonUpdate() {
   const [person, setPerson] = useState<Person>({
     fio: '',
     telegramId: '',
@@ -21,33 +21,52 @@ function PersonCreate() {
     personType: 0,
   });
 
+  const { id } = useParams(); // Get the account ID from the URL
   const navigate = useNavigate();
+
+  // Fetch existing account data when the component mounts
+  useEffect(() => {
+    const fetchPerson = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/persons/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setPerson(data); // Populate form fields with the existing account data
+        } else {
+          console.error("Failed to fetch person data");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchPerson();
+  }, [id]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
     const newValue = name === 'personType' ? Number(value) : value;
-
     setPerson({ ...person, [name]: newValue });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // API POST request to create new Person
-    const response = await fetch('http://localhost:5000/api/persons', {
-      method: 'POST',
+    // API PUT request to update the account
+    const response = await fetch(`http://localhost:5000/api/persons/${id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(person)
+      body: JSON.stringify(person) // Send the updated account data
     });
 
     if (response.ok) {
-      // After successful creation, navigate to the Persons page or give feedback
+      // After successful update, navigate to the accounts page or give feedback
       navigate('/persons');
     } else {
       // Handle errors (e.g., display an error message)
-      alert('Error creating Person');
+      alert('Error updating person');
     }
   };
 
@@ -55,6 +74,7 @@ function PersonCreate() {
     <div>
       <h1>Создать Дропа</h1>
       <form onSubmit={handleSubmit}>
+
         <div className="form-group">
           <label htmlFor="fio">ФИО:</label>
           <input
@@ -118,16 +138,16 @@ function PersonCreate() {
             onChange={handleInputChange}
             required
           >
-            <option selected hidden>Choose here</option>
+            <option hidden>Choose here</option>
             <option value={1}>Drop</option>
             <option value={2}>Dropovod</option>
           </select>
         </div>
 
-        <button type="submit" className="btn">Создать</button>
+        <button type="submit" className="btn">Создать банк</button>
       </form>
     </div>
   );
 }
 
-export default PersonCreate;
+export default PersonUpdate;
